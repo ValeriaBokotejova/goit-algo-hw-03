@@ -1,20 +1,23 @@
-# Створіть функцію get_days_from_today(date), яка розраховує кількість днів між заданою датою і поточною датою.
-
-# Вимоги до завдання:
-# Функція приймає один параметр: date — рядок, що представляє дату у форматі 'РРРР-ММ-ДД' (наприклад, '2020-10-09').
-# Функція повертає ціле число, яке вказує на кількість днів від заданої дати до поточної. Якщо задана дата пізніша за поточну, результат має бути від'ємним.
-# У розрахунках необхідно враховувати лише дні, ігноруючи час (години, хвилини, секунди).
-# Для роботи з датами слід використовувати модуль datetime Python.
-
 from datetime import datetime
+
 def get_days_from_today(date: str) -> int:
-    input_date = datetime.strptime(date, '%Y-%m-%d')
-    today_date = datetime.today()
-    if input_date > today_date:
-        days_from_today = input_date - today_date
-    else:
-        days_from_today = today_date - input_date
-        return -days_from_today.days
-    return days_from_today.days
-date = '2022-06-05'
-print(get_days_from_today(date))
+    try:
+        input_date = datetime.strptime(date, '%Y-%m-%d')
+        today = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
+        difference = input_date - today
+        return difference.days
+    except ValueError:
+        print("Error: Date format should be 'YYYY-MM-DD'")
+        return None
+
+# Date example showing positive day difference
+positive_difference = "2035-01-01"
+print(f"Positive difference: {get_days_from_today(positive_difference)}")
+
+# Date example showing negative day difference
+negative_difference = "2020-01-01"
+print(f"Negative difference: {get_days_from_today(negative_difference)}")
+
+# Example date with an incorrect date format
+incorrect_date_format = "01-01-1990"
+print(get_days_from_today(incorrect_date_format))
