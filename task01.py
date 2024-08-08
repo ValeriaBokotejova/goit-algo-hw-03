@@ -20,4 +20,4 @@ print(f"Negative difference: {get_days_from_today(negative_difference)}")
 
 # Example date with an incorrect date format
 incorrect_date_format = "01-01-1990"
-print(get_days_from_today(incorrect_date_format))
+get_days_from_today(incorrect_date_format)
